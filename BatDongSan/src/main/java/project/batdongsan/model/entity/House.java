@@ -1,14 +1,15 @@
 package project.batdongsan.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "house")
+@Table(name = "tb_house")
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class House {
 
     @Id
@@ -17,9 +18,10 @@ public class House {
     private String title;
     private Double price;
     private String description;
+    @Column(name="house_length")
     private Double houseLength;
+    @Column(name="house_width")
     private Double houseWidth;
-
     @Lob
     private byte[] image;
 
