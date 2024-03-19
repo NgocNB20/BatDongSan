@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Image</title>
+</head>
+<body>
+
+
+<th:block th:if="${#lists.size(houses) > 0}">
+    <h2>List Image</h2>
+    <div th:each="house : ${houses}">
+        <img th:src="'data:image/jpeg;base64,' + ${Base64.getEncoder().encodeToString(house.image)}" alt="Image"/>
+    </div>
+</th:block>
+<h2>Upload Image</h2>
+<form method="post" th:action="@{/house/upload}" th:object="${house}" enctype="multipart/form-data">
+    <span>image:  </span><input type="file" name="image"/><br/><br/>
+    <span>title:  </span><input type="text" name="title"/><br/><br/>
+    <span>price:  </span><input type="number" name="price"/><br/><br/>
+    <span>description:  </span><textarea name="description"></textarea><br/><br/>
+    <span>houseLength:  </span><input type="number" name="houseLength"/><br/><br/>
+    <span>houseWidth:  </span><input type="number" name="houseWidth"/><br/><br/>
+    <span>dowload:  </span><input type="submit" value="Upload"/>
+</form>
+</body>
+</html>
