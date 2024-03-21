@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+
 public class House {
 
     @Id
@@ -17,6 +18,7 @@ public class House {
     private Integer id;
     private String title;
     private Double price;
+    @Column(columnDefinition = "TEXT")
     private String description;
     @Column(name="house_length")
     private Double houseLength;

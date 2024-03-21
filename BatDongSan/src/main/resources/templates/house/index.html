@@ -2,27 +2,59 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Upload Image</title>
+    <title>CKEditor 5 with Thymeleaf</title>
+<!--    <script src="https://cdn.tiny.cloud/1/API_KEY/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>-->
+    <script src="https://cdn.tiny.cloud/1/ee8wtxm0kizhotq4ha5x7fxvxw5eucyaieqs1wgavzfxmzt9/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 <body>
-
-
-<th:block th:if="${#lists.size(images) > 0}">
-    <h2>List Image</h2>
-    <div th:each="image : ${images}">
-        <img th:src="'data:image/jpeg;base64,' +  ${image}" alt="Image"/>
-    </div>
-</th:block>
-<h2>Upload Image</h2>
-<form method="post" th:action="@{/house/upload}" th:object="${houseRequest}" enctype="multipart/form-data">
-    <span>image:  </span><input type="file" id="image" name="image" /><br/><br/>
-    <span>title:  </span><input type="text" id="title" name="title" /><br/><br/>
-    <span>price:  </span><input type="number" id="price" name="price" /><br/><br/>
-    <span>description:  </span><textarea id="description" name="description"></textarea><br/><br/>
-    <span>houseLength:  </span><input type="number" id="houseLength" name="houseLength" /><br/><br/>
-    <span>houseWidth:  </span><input type="number" id="houseWidth" name="houseWidth" /><br/><br/>
-    <span>dowload:  </span><input type="submit" value="Upload"/>
+<h2>CKEditor 5 with Thymeleaf</h2>
+<form th:action="@{/house/upload}" method="post" th:object="${houseDTO}">
+    <textarea id="description" name="description"></textarea>
+    <button type="submit">Save</button>
 </form>
+
+
+<script th:inline="javascript">
+  tinymce.init({
+    selector: 'textarea#description',
+    plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion',
+    editimage_cors_hosts: ['picsum.photos'],
+    menubar: 'file edit view insert format tools table help',
+    toolbar: "undo redo | accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview | save print | pagebreak anchor codesample | ltr rtl",
+    autosave_ask_before_unload: true,
+    autosave_interval: '30s',
+    autosave_prefix: '{path}{query}-{id}-',
+    autosave_restore_when_empty: false,
+    autosave_retention: '2m',
+    image_advtab: true ,
+    images_upload_handler: function (blobInfo) {
+      return new Promise(function (resolve, reject) {
+        var formData = new FormData();
+        formData.append('image', blobInfo.blob(), blobInfo.filename());
+
+        fetch('/api/upload', {
+          method: 'POST',
+          body: formData
+        })
+          .then(function (response) {
+            if (!response.ok) {
+              throw new Error('Image upload failed');
+            }
+            return response.text();
+          })
+          .then(function (imageUrl) {
+            resolve(imageUrl);
+          })
+          .catch(function (error) {
+            reject(error.message);
+          });
+      });
+    },
+  });
+
+
+
+</script>
 
 </body>
 </html>
