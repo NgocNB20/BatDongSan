@@ -1,6 +1,7 @@
 /* Custom Style */
 body {
     overflow-x: hidden;
+
 }
 .offcanvas {
     --bs-offcanvas-height: 50vh;

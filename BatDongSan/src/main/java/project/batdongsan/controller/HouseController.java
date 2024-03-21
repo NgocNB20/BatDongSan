@@ -2,11 +2,8 @@ package project.batdongsan.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.batdongsan.model.dto.HouseDTO;
-import project.batdongsan.model.entity.House;
-import project.batdongsan.model.request.HouseRequest;
 import project.batdongsan.repositoty.HouseRepository;
 import project.batdongsan.service.HouseService;
 import java.io.IOException;
@@ -24,8 +21,8 @@ public class HouseController {
     }
 
     @GetMapping("/index")
-    public String showUploadForm(Model model) {
-        return "house/index";
+    public String showUploadForm() {
+        return "/index";
     }
 
     @PostMapping("/upload")

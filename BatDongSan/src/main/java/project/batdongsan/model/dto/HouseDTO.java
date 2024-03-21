@@ -17,6 +17,7 @@ public class HouseDTO {
     private Double houseLength;
     private Double houseWidth;
     private MultipartFile image;
+    private byte[] imageBase64;
 
 
 }

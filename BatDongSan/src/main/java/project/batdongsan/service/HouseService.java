@@ -8,8 +8,12 @@ import java.util.List;
 
 public interface HouseService {
     void save(HouseDTO houseDTO);
+
     List<HouseDTO> findAll();
+
     HouseDTO toHouseDto(House house);
+
     String uploadImage(MultipartFile multipartFile);
+
     House toHouseEntity(HouseDTO houseDTO);
 }
