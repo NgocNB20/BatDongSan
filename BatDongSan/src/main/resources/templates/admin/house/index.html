@@ -8,9 +8,38 @@
 </head>
 <body>
 <h2>CKEditor 5 with Thymeleaf</h2>
-<form th:action="@{/house/upload}" method="post" th:object="${houseDTO}">
-    <textarea id="description" name="description"></textarea>
-    <button type="submit">Save</button>
+<!--<form th:action="@{/admin/save-house}" method="post" th:object="${houseDTO}" enctype="multipart/form-data">-->
+<!--    <textarea id="description" name="description"></textarea>-->
+<!--    <input id type="file" name="image">-->
+<!--    <button type="submit">Save</button>-->
+<!--</form>-->
+
+<form th:action="@{/admin/save-house}" method="post" th:object="${houseDTO}" enctype="multipart/form-data" class="mt-4">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" name="title" >
+    </div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" class="form-control" id="price" name="price" >
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" ></textarea>-->
+    </div>
+    <div class="form-group">
+        <label for="houseLength">House Length</label>
+        <input type="number" class="form-control" id="houseLength" name="houseLength" >
+    </div>
+    <div class="form-group">
+        <label for="houseWidth">House Width</label>
+        <input type="number" class="form-control" id="houseWidth" name="houseWidth" >
+    </div>
+    <div class="form-group">
+        <label for="image">Image House</label>
+        <input type="file" class="form-control" id="image" name="image" >
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 

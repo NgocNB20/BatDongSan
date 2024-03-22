@@ -25,6 +25,7 @@ public class House {
     @Column(name="house_width")
     private Double houseWidth;
     @Lob
-    private byte[] image;
+    @Column(name = "house_image")
+    private String image;
 
 }

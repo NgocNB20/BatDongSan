@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HouseServiceImpl implements HouseService {
@@ -23,6 +24,15 @@ public class HouseServiceImpl implements HouseService {
     @Autowired
     public HouseServiceImpl(HouseRepository houseRepository) {
         this.houseRepository = houseRepository;
+    }
+
+    @Override
+    public HouseDTO findById(Integer id) {
+        Optional<House> houseOtp = houseRepository.findById(id);
+        if (houseOtp.isPresent()) {
+            return toHouseDto(houseOtp.get());
+        }
+        return new HouseDTO();
     }
 
     @Override
@@ -80,30 +90,20 @@ public class HouseServiceImpl implements HouseService {
     public House toHouseEntity(HouseDTO houseDTO) {
 
         House house = new House();
-
-        if (houseDTO.getId()!=null) {
-            house.setId(house.getId());
+        if (StringUtils.isNotEmpty(houseDTO.getDescription())) {
+            String descriptionCustom = houseDTO.getDescription().replaceAll("../download/assets/img","/download/assets/img");
+            house.setDescription(descriptionCustom);
         }
-        if (houseDTO.getDescription() != null) {
-            house.setDescription(houseDTO.getDescription());
-        }
-        if (houseDTO.getPrice() != null) {
-            house.setPrice(house.getPrice());
-        }
+        house.setId(house.getId());
+        house.setPrice(houseDTO.getPrice());
+        house.setTitle(houseDTO.getTitle());
+        house.setHouseLength(houseDTO.getHouseLength());
+        house.setHouseWidth(houseDTO.getHouseWidth());
         if (houseDTO.getImage() != null) {
-            house.setTitle(house.getTitle());
-        }
-        if (houseDTO.getHouseLength() != null) {
-            house.setHouseLength(houseDTO.getHouseLength());
-        }
-        if (houseDTO.getHouseWidth() != null) {
-            house.setHouseWidth(houseDTO.getHouseWidth());
-        }
-        if (houseDTO.getImage() != null) {
-            byte[] fileContent = new byte[0];
             try {
-                fileContent = houseDTO.getImage().getBytes();
-                house.setImage(Base64.getEncoder().encode(fileContent));
+                byte[] imageData = houseDTO.getImage().getBytes();
+                String fileContent = Base64.getEncoder().encodeToString(imageData);
+                house.setImage(fileContent);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

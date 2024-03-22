@@ -24,14 +24,13 @@ import java.util.UUID;
 
 @RestController
 public class ImageUploadController {
-    private static final String UPLOAD_DIR = "C:\\BatDongSan\\BatDongSan\\src\\main\\resources\\static\\assets\\img\\";
+    private static final String UPLOAD_DIR = "D:\\bat dong san\\BatDongSan\\src\\main\\resources\\static\\assets\\img\\";
     @PostMapping("/api/upload")
     public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile file) {
+
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body("Please select a file to upload.");
         }
-
-
         try {
             String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
             String filePath = UPLOAD_DIR + uniqueFileName;
@@ -39,22 +38,11 @@ public class ImageUploadController {
 
             return ResponseEntity.ok("/download/assets/img/" + uniqueFileName);
         } catch (IOException e) {
+
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file.");
         }
     }
-//    @GetMapping("/download/assets/img/{filename:.+}")
-//    public ResponseEntity<Resource> downloadFile(@PathVariable String filename) throws IOException {
-//        Path filePath = Paths.get(UPLOAD_DIR).resolve(filename);
-//        Resource resource = new UrlResource(filePath.toUri());
-//
-//        if (resource.exists() && resource.isReadable()) {
-//            return ResponseEntity.ok()
-//                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-//                    .body(resource);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+
     @GetMapping("/download/assets/img/{imageName:.+}")
     public ResponseEntity<byte[]> getImage(@PathVariable String imageName) throws IOException {
         // Tạo đường dẫn tới thư mục chứa hình ảnh tĩnh

@@ -7,6 +7,7 @@ import project.batdongsan.model.entity.House;
 import java.util.List;
 
 public interface HouseService {
+    HouseDTO findById(Integer id);
     void save(HouseDTO houseDTO);
 
     List<HouseDTO> findAll();
