@@ -24,7 +24,7 @@ import java.util.UUID;
 
 @RestController
 public class ImageUploadController {
-    private static final String UPLOAD_DIR = "D:\\bat dong san\\BatDongSan\\src\\main\\resources\\static\\assets\\img\\";
+    private static final String UPLOAD_DIR = "C:\\BatDongSan\\BatDongSan\\src\\main\\resources\\static\\assets\\img";
     @PostMapping("/api/upload")
     public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile file) {
 

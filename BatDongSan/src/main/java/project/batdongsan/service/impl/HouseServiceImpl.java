@@ -11,10 +11,8 @@ import project.batdongsan.repositoty.HouseRepository;
 import project.batdongsan.service.HouseService;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
+import java.text.NumberFormat;
+import java.util.*;
 
 @Service
 public class HouseServiceImpl implements HouseService {
@@ -60,6 +58,8 @@ public class HouseServiceImpl implements HouseService {
     public HouseDTO toHouseDto(House house) {
 
         HouseDTO houseDTO = new HouseDTO();
+        NumberFormat format = NumberFormat.getInstance(new Locale("vi", "VN"));
+        String priceFormatVN = format.format(house.getPrice());
 
         houseDTO.setId(house.getId());
         houseDTO.setDescription(house.getDescription());
@@ -68,6 +68,7 @@ public class HouseServiceImpl implements HouseService {
         houseDTO.setHouseLength(house.getHouseLength());
         houseDTO.setHouseWidth(house.getHouseWidth());
         houseDTO.setImageBase64(house.getImage());
+        houseDTO.setPriceFormatVN(priceFormatVN+" VND");
 
         return houseDTO;
     }

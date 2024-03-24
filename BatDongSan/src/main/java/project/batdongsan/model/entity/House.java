@@ -27,5 +27,6 @@ public class House {
     @Lob
     @Column(name = "house_image")
     private String image;
+    private Double sale;
 
 }
