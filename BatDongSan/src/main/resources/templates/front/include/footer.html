@@ -105,7 +105,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
 <script>
   // JavaScript để tạo và cấu hình thanh trượt kéo 2 đầu
-  $("#range-slider").ionRangeSlider({
+  $("#price-slider").ionRangeSlider({
     type: "double",
     grid: true,
     min: 0,
@@ -113,12 +113,33 @@
     from: 200000,
     to: 10000000,
     step: 5000,
+    onStart: function (data) {
+      $("#minPrice").val(data.from);
+      $("#maxPrice").val(data.to);
+    },
     onChange: function (data) {
-      $("#minValuePrice").text(data.from);
-      $("#maxValuePrice").text(data.to);
+      $("#minPrice").val(data.from);
+      $("#maxPrice").val(data.to);
     }
   });
-  function formatNumber(number) {
-    return number.toLocaleString('vi-VN');
-  }
+
+  $("#area-slider").ionRangeSlider({
+    type: "double",
+    grid: true,
+    min: 0,
+    max: 500,
+    from: 0,
+    to: 30,
+    step: 2,
+    onStart: function (data) {
+      $("#minArea").val(data.from);
+      $("#maxArea").val(data.to);
+    },
+    onChange: function (data) {
+      $("#minArea").val(data.from);
+      $("#maxArea").val(data.to);
+    }
+  });
+
+
 </script>

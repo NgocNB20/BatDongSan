@@ -44,37 +44,46 @@
     <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
         <div class="container py-5">
             <h2 class="fw-bold pb-2">Tìm kiếm</h2>
-            <form class="position-relative" action="#" method="post">
-                <input type="text" class="form-control" id="findBy" placeholder="Ví dụ: theo khu vực, giá tiền, diện tích, chiều dài, chiều rộng...">
-
+            <form class="position-relative" th:action="@{/front/house/search}" method="get" th:object="${houseDTO}">
                 <div class="container mt-3">
                     <div class="row align-items-center">
-                        <div class="col-lg-8 col-sm-4 "><div style="margin-top: revert"><input class="form-check-input" style="margin-right: 0.5rem" type="checkbox" value="false" id="isSearchPrice"><span>Giá:</span></div></div>
-                        <div class="col-lg-4 col-sm-8"><input type="text" id="range-slider"></div>
+                        <div class="col-lg-8 col-sm-4 "><div style="margin-top: revert">
+                            <input class="form-check-input" style="margin-right: 0.5rem" type="checkbox"  id="isSearchPrice" name="isSearchPrice">
+                            <span>Giá:</span></div></div>
+                        <div class="col-lg-4 col-sm-8"><input type="text" id="price-slider"></div>
                     </div>
-                    <div class="row align-items-center  mt-3">
-                        <div class="col-lg-8 col-sm-4 "><div style="margin-top: revert"><input class="form-check-input" style="margin-right: 0.5rem" type="checkbox" value="false" id="isSearchAddress"><span>Khu vực:</span></div></div>
-                        <div class="col-lg-4 col-sm-8"><input class="form-control"></div>
+                    <div class="row align-items-center mt-3">
+                        <div class="col-lg-8 col-sm-4 "><div style="margin-top: revert">
+                            <input class="form-check-input" style="margin-right: 0.5rem" type="checkbox"  id="isSearchAddress" name="isSearchAddress">
+                            <span>Khu vực:</span></div></div>
+                        <div class="col-lg-4 col-sm-8"><input class="form-control" name="address" id="address" ></div>
                     </div>
-                    <div class="row align-items-center  mt-3">
-                        <div class="col-lg-8 col-sm-4  "><div style="margin-top: revert"><input class="form-check-input" style="margin-right: 0.5rem" type="checkbox" value="false" id="isSearchArea"><span>Diện tích:</span></div></div>
-                        <div class="col-lg-4 col-sm-8"><input class="form-control"></div>
+                    <div class="row align-items-center mt-3">
+                        <div class="col-lg-8 col-sm-4  "><div style="margin-top: revert">
+                            <input class="form-check-input" style="margin-right: 0.5rem" type="checkbox"  id="isSearchArea" name="isSearchArea">
+                            <span>Diện tích:</span></div></div>
+                        <div class="col-lg-4 col-sm-8"><input class="form-control" id="area-slider"></div>
                     </div>
-                    <div class="row align-items-center  mt-3">
-                        <div class="col-lg-8 col-sm-4 "><div style="margin-top: revert"><input class="form-check-input" style="margin-right: 0.5rem" type="checkbox" value="false" id="isSearchBedRoom"><span>Số lượng phòng ngủ:</span></div></div>
-                        <div class="col-lg-4 col-sm-8"><input class="form-control"></div>
+                    <div class="row align-items-center mt-3">
+                        <div class="col-lg-8 col-sm-4 "><div style="margin-top: revert">
+                            <input class="form-check-input" style="margin-right: 0.5rem" type="checkbox"  id="isSearchBedRoom" name="isSearchBedRoom">
+                            <span>Số lượng phòng ngủ:</span></div></div>
+                        <div class="col-lg-4 col-sm-8"><input class="form-control" name="bedRoom" id="bed-room"></div>
                     </div>
-                    <div class="row align-items-center  mt-3">
-                        <div class="col-lg-8 col-sm-4 "><div style="margin-top: revert"><input class="form-check-input" style="margin-right: 0.5rem" type="checkbox" value="false" id="isSearchLivingRoom"><span>Số lượng phòng khách:</span></div></div>
-                        <div class="col-lg-4 col-sm-8"><input class="form-control"></div>
+                    <div class="row align-items-center mt-3">
+                        <div class="col-lg-8 col-sm-4 "><div style="margin-top: revert">
+                            <input class="form-check-input" style="margin-right: 0.5rem" type="checkbox"  id="isSearchLivingRoom" name="isSearchLivingRoom">
+                            <span>Số lượng phòng khách:</span></div></div>
+                        <div class="col-lg-4 col-sm-8"><input class="form-control" name="livingRoom" id="living-room"></div>
                     </div>
-                    <input type="text" hidden name="minValuePrice" id="minValuePrice">
-                    <input type="text" hidden name="minValuePrice" id="maxValuePrice">
-
-
+                    <input type="number" hidden name="minPrice" id="minPrice">
+                    <input type="number" hidden name="maxPrice" id="maxPrice">
+                    <input type="number" hidden name="minArea" id="minArea">
+                    <input type="number" hidden name="maxArea" id="maxArea">
+                    <div class="d-flex justify-content-center mt-4">
+                        <button class="btn btn-sm btn-dark " type="submit" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"><i class="fa-solid fa-magnifying-glass"></i> Tìm Kiếm</button>
+                    </div>
                 </div>
-
-                <button class="position-absolute top-0 end-0 border-0 bg-transparent py-2 pe-2 text-secondary" type="submit" name="search"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
         </div>
     </div>

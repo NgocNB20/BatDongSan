@@ -24,6 +24,7 @@ public class House {
     private Double houseLength;
     @Column(name="house_width")
     private Double houseWidth;
+    private String address;
     @Lob
     @Column(name = "house_image")
     private String image;

@@ -3,6 +3,11 @@ package project.batdongsan.service.impl;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import project.batdongsan.model.dto.HouseDTO;
@@ -13,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class HouseServiceImpl implements HouseService {
@@ -113,7 +119,32 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public List<HouseDTO> searchByCondition(HouseDTO houseDTO) {
-        return new ArrayList<>();
+    public Page<HouseDTO> findByCondition(HouseDTO houseDTO, Pageable pageable) {
+        Page<House> itemsPageHouse = houseRepository.findByCondition(
+                houseDTO.getIsSearchPrice(),
+                houseDTO.getMinPrice(),
+                houseDTO.getMaxPrice(),
+
+                houseDTO.getIsSearchAddress(),
+                houseDTO.getAddress(),
+
+                houseDTO.getIsSearchArea(),
+                houseDTO.getMinArea(),
+                houseDTO.getMaxArea(),
+
+                houseDTO.getIsSearchBedRoom(),
+                houseDTO.getBedRoom(),
+
+                houseDTO.getIsSearchLivingRoom(),
+                houseDTO.getLivingRoom(),
+                pageable
+        );
+        return new PageImpl<>(
+                itemsPageHouse.getContent().stream()
+                        .map(this::toHouseDto)
+                        .collect(Collectors.toList()),
+                itemsPageHouse.getPageable(),
+                itemsPageHouse.getTotalElements()
+        );
     }
 }

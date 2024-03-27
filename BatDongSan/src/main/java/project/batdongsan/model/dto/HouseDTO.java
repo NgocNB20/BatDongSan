@@ -25,16 +25,27 @@ public class HouseDTO {
     private Double area;
     private Integer bedRoom;
     private Integer livingRoom;
-    private Boolean isSearchPrice;
+
+    /*search nằm trong khoảng max min*/
+    private String isSearchPrice;
     private Integer minPrice;
     private Integer maxPrice;
-    private Boolean isSearchAddress;
 
-    private Boolean isSearchArea;
+    /*search theo LIKE*/
+    private String isSearchAddress;
+    private String address;
+
+    /*search nằm trong khoảng max min*/
+    private String isSearchArea;
     private Integer minArea;
     private Integer maxArea;
 
-    private Boolean isSearchBedRoom;
-    private Boolean isSearchLivingRoom;
+    /*search theo điều kiện bằng*/
+    private String isSearchBedRoom;
+
+    /*search theo điều kiện bằng*/
+    private String isSearchLivingRoom;
+
+    private Integer page = 0;
 
 }

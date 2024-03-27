@@ -1,5 +1,8 @@
 package project.batdongsan.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 import project.batdongsan.model.dto.HouseDTO;
 import project.batdongsan.model.entity.House;
@@ -18,5 +21,5 @@ public interface HouseService {
 
     House toHouseEntity(HouseDTO houseDTO);
 
-    List<HouseDTO> searchByCondition(HouseDTO houseDTO);
+    Page<HouseDTO> findByCondition(HouseDTO houseDTO, Pageable pageable);
 }
