@@ -28,5 +28,10 @@ public class House {
     @Column(name = "house_image")
     private String image;
     private Double sale;
+    private Double area;
+    @Column(name = "bed_room")
+    private Integer bedRoom;
+    @Column(name = "livingRoom")
+    private Integer livingRoom;
 
 }

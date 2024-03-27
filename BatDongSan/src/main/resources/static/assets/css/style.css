@@ -4,7 +4,7 @@ body {
 
 }
 .offcanvas {
-    --bs-offcanvas-height: 50vh;
+    --bs-offcanvas-height: 75vh;
 }
 .scrollToTop {
     padding: 10px;
@@ -24,6 +24,9 @@ body {
     height: auto;
     cursor: pointer; /* Thêm con trỏ khi di chuột qua ảnh */
 }
+.irs-with-grid .irs-grid {
+    display: none !important;
+}
 .owl-item.active.center h5, .owl-item.active.center span {
     color: #000;
 }
@@ -31,5 +34,9 @@ body {
     #myCarousel .carousel-item img {
         height: auto !important;
     }
-
 }
+/*@media screen and (max-width: 768px) {*/
+/*    .offcanvas {*/
+/*        --bs-offcanvas-height: 50vh;*/
+/*    }*/
+/*}*/

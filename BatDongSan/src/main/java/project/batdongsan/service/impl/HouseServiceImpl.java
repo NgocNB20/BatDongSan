@@ -59,7 +59,7 @@ public class HouseServiceImpl implements HouseService {
 
         HouseDTO houseDTO = new HouseDTO();
         NumberFormat format = NumberFormat.getInstance(new Locale("vi", "VN"));
-        String priceFormatVN = format.format(house.getPrice());
+        String priceFormatVN = format.format(house.getPrice()==null ? 0 : house.getPrice());
 
         houseDTO.setId(house.getId());
         houseDTO.setDescription(house.getDescription());
@@ -110,5 +110,10 @@ public class HouseServiceImpl implements HouseService {
             }
         }
         return house;
+    }
+
+    @Override
+    public List<HouseDTO> searchByCondition(HouseDTO houseDTO) {
+        return new ArrayList<>();
     }
 }

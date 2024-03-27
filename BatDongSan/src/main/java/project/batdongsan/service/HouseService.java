@@ -17,4 +17,6 @@ public interface HouseService {
     String uploadImage(MultipartFile multipartFile);
 
     House toHouseEntity(HouseDTO houseDTO);
+
+    List<HouseDTO> searchByCondition(HouseDTO houseDTO);
 }

@@ -1,2 +1,7 @@
-package project.batdongsan.repositoty;public class BaseRepository {
+package project.batdongsan.repositoty;
+
+import java.io.Serializable;
+
+public class BaseRepository<T, ID extends Serializable> {
+
 }
