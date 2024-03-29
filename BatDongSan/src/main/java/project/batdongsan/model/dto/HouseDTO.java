@@ -45,7 +45,4 @@ public class HouseDTO {
 
     /*search theo điều kiện bằng*/
     private String isSearchLivingRoom;
-
-    private Integer page = 0;
-
 }

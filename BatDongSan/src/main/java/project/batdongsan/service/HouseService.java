@@ -21,5 +21,5 @@ public interface HouseService {
 
     House toHouseEntity(HouseDTO houseDTO);
 
-    Page<HouseDTO> findByCondition(HouseDTO houseDTO, Pageable pageable);
+    Page<HouseDTO> findByCondition(HouseDTO houseDTO,int page, int size);
 }

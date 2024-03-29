@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +15,8 @@ import project.batdongsan.model.dto.HouseDTO;
 import project.batdongsan.model.entity.House;
 import project.batdongsan.repositoty.HouseRepository;
 import project.batdongsan.service.HouseService;
+import project.batdongsan.specification.HouseSpecification;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -65,19 +68,24 @@ public class HouseServiceImpl implements HouseService {
 
         HouseDTO houseDTO = new HouseDTO();
         NumberFormat format = NumberFormat.getInstance(new Locale("vi", "VN"));
-        String priceFormatVN = format.format(house.getPrice()==null ? 0 : house.getPrice());
+        String priceFormatVN = format.format(house.getPrice() == null ? 0 : house.getPrice());
 
         houseDTO.setId(house.getId());
         houseDTO.setDescription(house.getDescription());
         houseDTO.setPrice(house.getPrice());
-        houseDTO.setTitle(house.getTitle()) ;
+        houseDTO.setTitle(house.getTitle());
         houseDTO.setHouseLength(house.getHouseLength());
         houseDTO.setHouseWidth(house.getHouseWidth());
         houseDTO.setImageBase64(house.getImage());
-        houseDTO.setPriceFormatVN(priceFormatVN+" VND");
+        houseDTO.setPriceFormatVN(priceFormatVN + " VND");
+        houseDTO.setAddress(house.getAddress());
+        houseDTO.setBedRoom(house.getBedRoom());
+        houseDTO.setLivingRoom(house.getLivingRoom());
+        houseDTO.setArea(house.getArea());
 
         return houseDTO;
     }
+
     public String uploadImage(MultipartFile image) {
         // Save the image file to the server
         String fileName = image.getOriginalFilename();
@@ -92,13 +100,13 @@ public class HouseServiceImpl implements HouseService {
         return "/static/assets/img" + fileName;
     }
 
-//    <img th:src="'data:image/png;base64,' + ${base64Image}" alt="Base64 Image"/>
+    //    <img th:src="'data:image/png;base64,' + ${base64Image}" alt="Base64 Image"/>
     @Override
     public House toHouseEntity(HouseDTO houseDTO) {
 
         House house = new House();
         if (StringUtils.isNotEmpty(houseDTO.getDescription())) {
-            String descriptionCustom = houseDTO.getDescription().replaceAll("../download/assets/img","/download/assets/img");
+            String descriptionCustom = houseDTO.getDescription().replaceAll("../download/assets/img", "/download/assets/img");
             house.setDescription(descriptionCustom);
         }
         house.setId(house.getId());
@@ -119,32 +127,44 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public Page<HouseDTO> findByCondition(HouseDTO houseDTO, Pageable pageable) {
-        Page<House> itemsPageHouse = houseRepository.findByCondition(
-                houseDTO.getIsSearchPrice(),
-                houseDTO.getMinPrice(),
-                houseDTO.getMaxPrice(),
+    public Page<HouseDTO> findByCondition(HouseDTO houseDTO,int page, int pageSize) {
+        Specification<House> spec = new HouseSpecification(houseDTO);
+        Page<House> housePage = houseRepository.findAll(spec, PageRequest.of(page,pageSize));
+//        List<House> houses = houseRepository.findAll();
+//        if (StringUtils.isNotEmpty(houseDTO.getIsSearchAddress())) {
+//            houses = houses.stream().filter(h -> h.getAddress().contains(houseDTO.getAddress())).collect(Collectors.toList());
+//        }
+//        if (StringUtils.isNotEmpty(houseDTO.getIsSearchPrice())) {
+//            houses = houses.stream().filter(h -> h.getPrice() >= houseDTO.getMinPrice() && h.getPrice() <= houseDTO.getMaxPrice()).collect(Collectors.toList());
+//        }
+//        if (StringUtils.isNotEmpty(houseDTO.getIsSearchAddress())) {
+//            houses = houses.stream().filter(h -> h.getAddress().contains(houseDTO.getAddress())).collect(Collectors.toList());
+//        }
+//        if (StringUtils.isNotEmpty(houseDTO.getIsSearchArea())) {
+//            houses = houses.stream().filter(h -> h.getArea() >= houseDTO.getMinArea() && h.getArea() <= houseDTO.getMinArea()).collect(Collectors.toList());
+//        }
+//        if (StringUtils.isNotEmpty(houseDTO.getIsSearchBedRoom())) {
+//            houses = houses.stream().filter(h -> houseDTO.getBedRoom() == h.getBedRoom()).collect(Collectors.toList());
+//        }
+//        if (StringUtils.isNotEmpty(houseDTO.getIsSearchLivingRoom())) {
+//            houses = houses.stream().filter(h -> houseDTO.getLivingRoom() == h.getLivingRoom()).collect(Collectors.toList());
+//        }
+//
+//        int startItem = (page -1) * pageSize;
+//        List<HouseDTO> houseDTOList = houses.stream()
+//                .map(this::toHouseDto)
+//                .toList();
+//        List<HouseDTO> pageData = houseDTOList.stream()
+//                .skip(startItem)
+//                .limit(pageSize)
+//                .toList();
+//
+        List<HouseDTO> houseDTOList = new ArrayList<>();
+        for (House house : housePage.getContent()) {
+            HouseDTO houseDto = toHouseDto(house);
+            houseDTOList.add(houseDto);
+        }
+        return new PageImpl<>(houseDTOList, housePage.getPageable(), housePage.getTotalElements());
 
-                houseDTO.getIsSearchAddress(),
-                houseDTO.getAddress(),
-
-                houseDTO.getIsSearchArea(),
-                houseDTO.getMinArea(),
-                houseDTO.getMaxArea(),
-
-                houseDTO.getIsSearchBedRoom(),
-                houseDTO.getBedRoom(),
-
-                houseDTO.getIsSearchLivingRoom(),
-                houseDTO.getLivingRoom(),
-                pageable
-        );
-        return new PageImpl<>(
-                itemsPageHouse.getContent().stream()
-                        .map(this::toHouseDto)
-                        .collect(Collectors.toList()),
-                itemsPageHouse.getPageable(),
-                itemsPageHouse.getTotalElements()
-        );
     }
 }

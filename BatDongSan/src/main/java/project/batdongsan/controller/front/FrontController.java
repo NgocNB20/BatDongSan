@@ -46,21 +46,10 @@ public class FrontController {
         return "redirect:/house/index";
     }
 
-//    @GetMapping("/house/index/{housePath}")
-//    public String ShowPageHouseById(@PathVariable String housePath, Model molModel) {
-//
-//        String[] parts = housePath.split("-");
-//        Integer houseId  = Integer.valueOf(parts[parts.length -1]);
-//        HouseDTO houseDTO = houseService.findById(houseId);
-//        molModel.addAttribute("houseDTO",houseDTO);
-//
-//        return "front/house/index";
-//
-//    }
 
     @GetMapping("/house/search")
-    public String doSearch(@ModelAttribute HouseDTO houseDTO,Model model) {
-        Page<HouseDTO> houseDTOPage = houseService.findByCondition(houseDTO, PageRequest.of(houseDTO.getPage(), sizePage));
+    public String doSearch(@ModelAttribute HouseDTO houseDTO,@RequestParam(name = "page", defaultValue = "0") int page) {
+        Page<HouseDTO> houseDTOPage = houseService.findByCondition(houseDTO, page, sizePage);
         return "front/house/index";
     }
 }
