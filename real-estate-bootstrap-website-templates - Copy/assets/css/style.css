@@ -14,8 +14,14 @@ body {
     display: none;
     z-index: 99;
 }
-.owl-item.active.center h5, .owl-item.active.center span {
-    color: #000;
+.slider {
+    width: 80%;
+    margin: 0 auto;
+}
+.slider img {
+    width: 100%;
+    height: auto;
+    cursor: pointer; /* Thêm con trỏ khi di chuột qua ảnh */
 }
 @media screen and (max-width: 1023px) {
     #myCarousel .carousel-item img {

@@ -33,8 +33,9 @@ public class FrontController {
     }
 
     @GetMapping({"/index","/","/index.html"})
-    public String showIndexPage(Model model) {
-        List<HouseDTO> houseDTOList = houseService.findAll();
+    public String showIndexPage(Model model,@ModelAttribute HouseDTO houseDTO,@RequestParam(name = "page", defaultValue = "0") int page) {
+        Page<HouseDTO> houseDTOPage = houseService.findByCondition(houseDTO, page, sizePage);
+        List<HouseDTO> houseDTOList = houseDTOPage.getContent();
         model.addAttribute("houseDTOList",houseDTOList);
 
         return "/index";
@@ -51,5 +52,15 @@ public class FrontController {
     public String doSearch(@ModelAttribute HouseDTO houseDTO,@RequestParam(name = "page", defaultValue = "0") int page) {
         Page<HouseDTO> houseDTOPage = houseService.findByCondition(houseDTO, page, sizePage);
         return "front/house/index";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        // Kiểm tra xem có thông báo lỗi không
+        if (model.containsAttribute("error")) {
+            // Nếu có, truyền thông báo lỗi vào model để hiển thị trên trang Thymeleaf
+            model.addAttribute("errorMessage", "Đăng nhập không thành công. Vui lòng kiểm tra lại email và mật khẩu.");
+        }
+        return "login"; // Trả về tên của trang Thymeleaf (ví dụ: login.html)
     }
 }
