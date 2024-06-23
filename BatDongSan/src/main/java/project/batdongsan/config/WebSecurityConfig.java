@@ -139,7 +139,7 @@ public class WebSecurityConfig {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(encoder);
-        System.out.println("test jenkins");
+        System.out.println("test jenkins1");
         System.out.println("test jenkins1");
         return authProvider;
     }
