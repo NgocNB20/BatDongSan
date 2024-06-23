@@ -140,6 +140,7 @@ public class WebSecurityConfig {
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(encoder);
         System.out.println("test jenkins");
+        System.out.println("test jenkins1");
         return authProvider;
     }
 
