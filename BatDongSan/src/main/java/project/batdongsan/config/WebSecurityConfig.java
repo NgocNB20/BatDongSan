@@ -136,11 +136,10 @@ public class WebSecurityConfig {
     }
     @Bean
     public DaoAuthenticationProvider authenticationProvider(UserDetailsService userDetailsService, PasswordEncoder encoder) {
+        System.out.println("WTF");
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(encoder);
-        System.out.println("test jenkins1");
-        System.out.println("test jenkins1");
         return authProvider;
     }
 
