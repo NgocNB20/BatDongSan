@@ -142,6 +142,7 @@ public class WebSecurityConfig {
         authProvider.setPasswordEncoder(encoder);
         System.out.println(aabcdfga);
         System.out.println(dsadsadas);
+        System.out.println("dsabndsabsda");
         return authProvider;
     }
 
