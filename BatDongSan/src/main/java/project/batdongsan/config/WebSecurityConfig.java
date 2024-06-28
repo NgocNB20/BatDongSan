@@ -140,10 +140,6 @@ public class WebSecurityConfig {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(encoder);
-        System.out.println(aabcdfga);
-        System.out.println(dsadsadas);
-        System.out.println("dsabndsabsda");
-        System.out.println("cbsavdsa");
         return authProvider;
     }
 

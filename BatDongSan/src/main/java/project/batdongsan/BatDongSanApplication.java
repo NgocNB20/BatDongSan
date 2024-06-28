@@ -29,15 +29,16 @@ public class BatDongSanApplication {
         SpringApplication.run(BatDongSanApplication.class, args);
     }
 
-//    @Bean
-//    public CommandLineRunner init() {
-//        return args -> {
-//            User user = User.builder().email("user@gmail.com").password(passwordEncoder.encode("user")).roles(Set.of(new Role(null,"USER"))).build();
-//            User admin = User.builder().email("admin@gmail.com").password(passwordEncoder.encode("admin")).roles(Set.of(new Role(null,"ADMIN"))).build();
-//            userRepository.save(user);
-//            userRepository.save(admin);
-//        };
-//    }
+    @Bean
+    public CommandLineRunner init() {
+        System.out.println("acđgagaga");
+        return args -> {
+            User user = User.builder().email("user@gmail.com").password(passwordEncoder.encode("user")).roles(Set.of(new Role(null,"USER"))).build();
+            User admin = User.builder().email("admin@gmail.com").password(passwordEncoder.encode("admin")).roles(Set.of(new Role(null,"ADMIN"))).build();
+            userRepository.save(user);
+            userRepository.save(admin);
+        };
+    }
 
 
 
