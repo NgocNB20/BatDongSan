@@ -32,13 +32,13 @@ public class FrontController {
         this.houseService = houseService;
     }
 
-    @GetMapping({"/index","/","/index.html"})
+    @GetMapping({"/index","/"})
     public String showIndexPage(Model model,@ModelAttribute HouseDTO houseDTO,@RequestParam(name = "page", defaultValue = "0") int page) {
         Page<HouseDTO> houseDTOPage = houseService.findByCondition(houseDTO, page, sizePage);
         List<HouseDTO> houseDTOList = houseDTOPage.getContent();
         model.addAttribute("houseDTOList",houseDTOList);
 
-        return "/index";
+        return "index";
     }
 
     @PostMapping("/upload")
