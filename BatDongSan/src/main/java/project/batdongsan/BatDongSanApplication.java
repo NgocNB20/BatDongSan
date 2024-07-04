@@ -33,22 +33,11 @@ public class BatDongSanApplication {
     public CommandLineRunner init() {
         System.out.println("acđgagaga");
         return args -> {
-            User user = User.builder().email("user@gmail.com").password(passwordEncoder.encode("user")).roles(Set.of(new Role(null,"USER"))).build();
-            User admin = User.builder().email("admin@gmail.com").password(passwordEncoder.encode("admin")).roles(Set.of(new Role(null,"ADMIN"))).build();
+            User user = User.builder().email("user@gmail.com").username("user@gmail.com").password(passwordEncoder.encode("user")).accountNonLocked(true).enabled(true).roles(Set.of(new Role(null,"ROLE_USER"))).build();
+            User admin = User.builder().email("admin@gmail.com").username("admin@gmail.com").password(passwordEncoder.encode("admin")).accountNonLocked(true).enabled(true).roles(Set.of(new Role(null,"ROLE_ADMIN"))).build();
             userRepository.save(user);
             userRepository.save(admin);
         };
     }
 
-
-
-    public class Main {
-
-        public static void main(String[] args) throws MessagingException {
-
-
-
-
-        }
-    }
 }

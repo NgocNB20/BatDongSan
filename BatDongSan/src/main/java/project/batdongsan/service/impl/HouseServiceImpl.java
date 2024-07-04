@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import project.batdongsan.model.dto.HouseDTO;
@@ -21,7 +19,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class HouseServiceImpl implements HouseService {
@@ -127,9 +124,9 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public Page<HouseDTO> findByCondition(HouseDTO houseDTO,int page, int pageSize) {
+    public Page<HouseDTO> findByCondition(HouseDTO houseDTO, int page, int pageSize) {
         Specification<House> spec = new HouseSpecification(houseDTO);
-        Page<House> housePage = houseRepository.findAll(spec, PageRequest.of(page,pageSize));
+        Page<House> housePage = houseRepository.findAll(spec, PageRequest.of(page, pageSize));
 //        List<House> houses = houseRepository.findAll();
 //        if (StringUtils.isNotEmpty(houseDTO.getIsSearchAddress())) {
 //            houses = houses.stream().filter(h -> h.getAddress().contains(houseDTO.getAddress())).collect(Collectors.toList());

@@ -31,10 +31,10 @@ public class User {
 
     private String lastName;
 
-    private boolean enabled;
+    private boolean enabled=true;
 
     @Column(name = "account_non_locked")
-    private boolean accountNonLocked;
+    private boolean accountNonLocked = true;
 
     @Column(name = "failed_attempt")
     private int failedAttempt;

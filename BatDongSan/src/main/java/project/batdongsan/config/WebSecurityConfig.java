@@ -130,10 +130,10 @@ public class WebSecurityConfig {
             }
         };
     }
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return userDetailsServiceApp;
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        return userDetailsServiceApp;
+//    }
     @Bean
     public DaoAuthenticationProvider authenticationProvider(UserDetailsService userDetailsService, PasswordEncoder encoder) {
 

@@ -42,7 +42,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.28</version> <!-- Or the version you prefer or are using -->
+            <version>8.0.30</version> <!-- Or the version you prefer or are using -->
         </dependency>
 
         <dependency>
