@@ -38,7 +38,7 @@ public class FrontController {
         List<HouseDTO> houseDTOList = houseDTOPage.getContent();
         model.addAttribute("houseDTOList",houseDTOList);
 
-        return "/index";
+        return "index";
     }
 
     @PostMapping("/upload")
